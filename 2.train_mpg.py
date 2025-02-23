@@ -94,8 +94,8 @@ y_test = y_test.to_numpy()
 mlp = MultilayerPerceptron([
     Layer(fan_in=X_train.shape[1], fan_out=256, activation_function=Relu(), dropout_rate=0.1),
     Layer(fan_in=256, fan_out=128, activation_function=Mish(), dropout_rate=0.1),
-    Layer(fan_in=128, fan_out=64, activation_function=Mish(), dropout_rate=0.05),
-    Layer(fan_in=64, fan_out=32, activation_function=Mish(), dropout_rate=0.05),
+    Layer(fan_in=128, fan_out=64, activation_function=Relu(), dropout_rate=0.05),
+    Layer(fan_in=64, fan_out=32, activation_function=Relu(), dropout_rate=0.05),
     Layer(fan_in=32, fan_out=16, activation_function=Relu(), dropout_rate=0.02),
     Layer(fan_in=16, fan_out=1, activation_function=Linear())
 ])
