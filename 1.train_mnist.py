@@ -73,9 +73,9 @@ x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.
 
 # One-hot encode labels
 number_classes = 10
-y_train = to_categorical(y_train, number_classes=number_classes)
-y_val = to_categorical(y_val, number_classes=number_classes)
-y_test = to_categorical(y_test, number_classes=number_classes)
+y_train = to_categorical(y_train, num_classes=number_classes)
+y_val = to_categorical(y_val, num_classes=number_classes)
+y_test = to_categorical(y_test, num_classes=number_classes)
 
 # Build the MLP Model
 mlp_model = MultilayerPerceptron([
