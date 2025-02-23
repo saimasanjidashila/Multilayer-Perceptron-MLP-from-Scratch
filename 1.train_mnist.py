@@ -77,53 +77,6 @@ y_train = to_categorical(y_train, num_classes=number_classes)
 y_val = to_categorical(y_val, num_classes=number_classes)
 y_test = to_categorical(y_test, num_classes=number_classes)
 
-# Build the MLP Model
-mlp_model = MultilayerPerceptron([
-    Dense(784, 1024, Relu()),  # More neurons
-    Dense(1024, 512, Relu()),
-    Dense(512, 256, Relu()),
-    Dense(256, 128, Relu()),
-    Dense(128, 10, Softmax())
-])
-
-# Train the Model
-training_loss, validation_loss = mlp_model.train(
-    x_train, y_train, x_val, y_val,
-    learning_rate=0.001, batch_size=64, epochs=20
-)
-
-# Evaluate Model on Test Data
-print("\n Evaluating Model on Test Data...")
-y_pred = mlp_model.predict(x_test)
-y_true = np.argmax(y_test, axis=1)
-accuracy = np.mean(y_pred == y_true) * 100
-
-# Print Accuracy
-print(f"\n Final Test Accuracy: {accuracy:.2f}%")
-
-# Visualize Training Loss & Validation Loss
-plt.figure(figsize=(10, 5))
-plt.plot(range(1, 21), training_loss, label="Training Loss",color ='r',marker='o')
-plt.plot(range(1, 21), validation_loss, label="Validation Loss", color='b',marker='s')
-plt.xlabel("Epochs")
-plt.ylabel("Loss")
-plt.title("Training & Validation Loss Over 20 Epochs")
-plt.legend()
-plt.grid()
-plt.show()
-
-fig, axes = plt.subplots(1, 5, figsize=(12, 3))
-for i, ax in enumerate(axes):
-    ax.imshow(x_test[i].reshape(28, 28), cmap='gray')
-
-    # 🛠️ Fix the label display
-    true_label = np.argmax(y_test[i])  # Convert one-hot to digit
-    ax.set_title(f"Predicted: {y_pred[i]}\nTrue: {true_label}")
-
-    ax.axis("off")
-
-plt.show()
-
 # Build the MLP Model 2
 mlp_model2 = MultilayerPerceptron([
     Dense(784, 2048, Relu()),
