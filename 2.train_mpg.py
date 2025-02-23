@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+"""
+# Author : Saima Sanjida Shila
+# Course: CSC7700 - LSU
+# Import Necessary Libraries :
+
+"""
 import math
 import numpy as np
 import matplotlib.pyplot as plt
