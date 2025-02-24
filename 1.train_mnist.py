@@ -76,9 +76,11 @@ number_classes = 10
 y_train = to_categorical(y_train, num_classes=number_classes)
 y_val = to_categorical(y_val, num_classes=number_classes)
 y_test = to_categorical(y_test, num_classes=number_classes)
+print("\n Data processing done...")
 
-# Build the MLP Model 2
-mlp_model2 = MultilayerPerceptron([
+# Build the MLP Model 
+print("\n Defining model architecture...")
+MLP_model = MultilayerPerceptron([
     Dense(784, 2048, Relu()),
     Dense(2048, 1024, Relu()),
     Dense(1024, 512, Relu()),
@@ -88,23 +90,24 @@ mlp_model2 = MultilayerPerceptron([
 ])
 
 # Train the Model
-training_loss2, validation_loss2 = mlp_model2.train(
+print("\n Training the Model on train Data...")
+training_loss, validation_loss = MLP_model.train(
     x_train, y_train, x_val, y_val,
     learning_rate=0.001, batch_size=64, epochs=50
 )
 
 # Evaluate Model on Test Data
 print("\n Evaluating Model on Test Data...")
-y_pred2 = mlp_model2.predict(x_test)
-y_true2 = np.argmax(y_test, axis=1)
-accuracy2 = np.mean(y_pred2 == y_true2) * 100
+y_prediction = MLP_model.predict(x_test)
+y_true = np.argmax(y_test, axis=1)
+accuracy = np.mean(y_prediction == y_true) * 100
 
-print(f"\n Final Test Accuracy: {accuracy2:.2f}%")
+print(f"\n Final Test Accuracy: {accuracy:.2f}%")
 
 # Visualize Training Loss & Validation Loss
 plt.figure(figsize=(10, 5))
-plt.plot(range(1, 51), training_loss2, label="Training Loss", color ='b', marker='o')
-plt.plot(range(1, 51), validation_loss2, label="Validation Loss", color = 'r', marker='s')
+plt.plot(range(1, 51), training_loss, label="Training Loss", marker='o')
+plt.plot(range(1, 51), validation_loss, label="Validation Loss", marker='s')
 plt.xlabel("Epochs")
 plt.ylabel("Loss")
 plt.title("Training & Validation Loss Over 50 Epochs")
@@ -119,7 +122,7 @@ for i, ax in enumerate(axes):
 
     # Fix the label display
     true_label = np.argmax(y_test[i])  # Convert one hot to digit
-    ax.set_title(f"Predicted: {y_pred2[i]}\nTrue: {true_label}")
+    ax.set_title(f"Predicted: {y_prediction[i]}\nTrue: {true_label}")
 
     ax.axis("off")
 
