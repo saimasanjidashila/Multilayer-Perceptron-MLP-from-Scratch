@@ -71,7 +71,7 @@ x_test = x_test.reshape(len(x_test), 784) / 255.0
 # Split training data into 80% train, 20% validation
 x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.2, random_state=42, shuffle=True)
 
-# One-hot encode labels
+# One hot encode labels
 number_classes = 10
 y_train = to_categorical(y_train, num_classes=number_classes)
 y_val = to_categorical(y_val, num_classes=number_classes)
@@ -103,8 +103,8 @@ print(f"\n Final Test Accuracy: {accuracy2:.2f}%")
 
 # Visualize Training Loss & Validation Loss
 plt.figure(figsize=(10, 5))
-plt.plot(range(1, 51), training_loss2, label="Training Loss", marker='o')
-plt.plot(range(1, 51), validation_loss2, label="Validation Loss", marker='s')
+plt.plot(range(1, 51), training_loss2, label="Training Loss", color ='b', marker='o')
+plt.plot(range(1, 51), validation_loss2, label="Validation Loss", color = 'r', marker='s')
 plt.xlabel("Epochs")
 plt.ylabel("Loss")
 plt.title("Training & Validation Loss Over 50 Epochs")
@@ -117,8 +117,8 @@ fig, axes = plt.subplots(1, 5, figsize=(12, 3))
 for i, ax in enumerate(axes):
     ax.imshow(x_test[i].reshape(28, 28), cmap='gray')
 
-    # 🛠️ Fix the label display
-    true_label = np.argmax(y_test[i])  # Convert one-hot to digit
+    # Fix the label display
+    true_label = np.argmax(y_test[i])  # Convert one hot to digit
     ax.set_title(f"Predicted: {y_pred2[i]}\nTrue: {true_label}")
 
     ax.axis("off")
