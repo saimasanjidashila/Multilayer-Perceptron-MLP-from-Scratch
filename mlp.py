@@ -55,10 +55,10 @@ class Dense:
         return self.activation.forward(self.z)
 
     def backward(self, grad_output, learning_rate):
-        activation_grad = grad_output * self.activation.derivative(self.z)
-        grad_W = np.dot(self.input.T, activation_grad)
-        grad_b = np.sum(activation_grad, axis=0, keepdims=True)
-        grad_input = np.dot(activation_grad, self.W.T)
+        activation_gradient = grad_output * self.activation.derivative(self.z)
+        grad_W = np.dot(self.input.T, activation_gradient)
+        grad_b = np.sum(activation_gradient, axis=0, keepdims=True)
+        grad_input = np.dot(activation_gradient, self.W.T)
 
         # Update weights immediately using Vanilla SGD
         self.W -= learning_rate * grad_W
@@ -78,7 +78,9 @@ class MultilayerPerceptron:
         return x
 
     def backward(self, loss_grad, learning_rate):
-        """Applies backpropagation through all layers"""
+        # 
+        #""" Applies backpropagation through all layers"""
+        #
         for layer in reversed(self.layers):
             loss_grad = layer.backward(loss_grad, learning_rate)
 
@@ -91,9 +93,9 @@ class MultilayerPerceptron:
          np.random.shuffle(indices)
          x_train, y_train = x_train[indices], y_train[indices]
 
-         for start_idx in range(0, x_train.shape[0], batch_size):
-            end_idx = min(start_idx + batch_size, x_train.shape[0])
-            batch_x, batch_y = x_train[start_idx:end_idx], y_train[start_idx:end_idx]
+         for start_index in range(0, x_train.shape[0], batch_size):
+            end_index = min(start_index + batch_size, x_train.shape[0])
+            batch_x, batch_y = x_train[start_index:end_index], y_train[start_index:end_index]
 
             # Forward pass
             y_pred = self.forward(batch_x)
@@ -101,7 +103,7 @@ class MultilayerPerceptron:
             # Compute loss gradient
             loss_grad = self.loss_func.derivative(batch_y, y_pred)
             
-            # 🛠️ FIX: Pass learning_rate as an argument to backward()
+            # Pass learning_rate as an argument to backward()
             self.backward(loss_grad, learning_rate)
 
          # Compute losses after the epoch
