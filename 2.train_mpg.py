@@ -101,25 +101,25 @@ mlp = MultilayerPerceptron([
 ])
 # Train the Model
 loss_function = SquaredError()
-train_losses, val_losses = mlp.train(X_train, y_train, X_val, y_val,
+train_loss, validation_loss = mlp.train(X_train, y_train, X_val, y_val,
                                          loss_function, learning_rate=0.0005,
                                          batch_size=16, epochs=50, rmsprop=True)
 
 # Evaluate Model on Test Data
-y_pred = mlp.forward(X_test)
-test_loss = loss_function.loss(y_test, y_pred)
+y_prediction = mlp.forward(X_test)
+test_loss = loss_function.loss(y_test, y_prediction)
 print(f"\n Total Test Loss: {test_loss:.4f}\n")
 
 # Print True vs Predicted MPG for First 10 Samples
-comparison = np.hstack((y_test.reshape(-1,1), y_pred.reshape(-1,1)))
+comparison = np.hstack((y_test.reshape(-1,1), y_prediction.reshape(-1,1)))
 print("\n True MPG vs Predicted MPG:\n")
 print("True MPG | Predicted MPG")
 for i in range(10):
     print(f"{comparison[i, 0]:.2f} | {comparison[i, 1]:.2f}")
 
 # Plot Training vs Validation Loss
-plt.plot(train_losses, label="Training Loss", color='b')
-plt.plot(val_losses, label="Validation Loss", color='r')
+plt.plot(train_loss, label="Training Loss", color='b')
+plt.plot(validation_loss, label="Validation Loss", color='r')
 plt.xlabel("Epochs")
 plt.ylabel("Loss")
 plt.legend()
